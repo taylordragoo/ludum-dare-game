@@ -21,14 +21,13 @@ module.exports = (env) => {
   }
 
   return {
-    entry: './src/game.ts',
+    entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
     },
     module: {
       rules: [
-        { test: /\.ts$/, loader: 'ts-loader', exclude: '/node_modules/' },
         { test: /phaser\.js$/, loader: 'expose-loader?Phaser' },
         { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] }
       ]
