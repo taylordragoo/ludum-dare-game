@@ -5,9 +5,11 @@
   "author": {
     "name": "Taylor Dragoo"
   },
+  "main": "server.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "start": "webpack --mode production",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p",
     "build-android": "webpack --mode production --env.android && npx cap copy android && npx cap open android",
     "build-ios": "webpack --mode production --env.ios && npx cap copy ios && npx cap open ios",
     "build-electron": "webpack --mode production --env.electron && npx cap copy electron",
@@ -19,6 +21,7 @@
     "@capacitor/android": "^1.0.0-beta.24",
     "@capacitor/cli": "^1.0.0-beta.24",
     "@capacitor/core": "^1.0.0-beta.24",
+    "express": "^4.17.1",
     "phaser": "3.22.0"
   },
   "devDependencies": {
@@ -30,7 +33,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "ts-loader": "5.3.3",
     "typescript": "3.3.3",
-    "webpack": "4.29.6",
+    "webpack": "^4.29.6",
     "webpack-cli": "3.2.3",
     "webpack-dev-server": "3.1.14"
   }
