@@ -31,7 +31,7 @@ export default class Preload extends Phaser.Scene {
         // this.load.image('mechRU', 'src/assets/PlayerShip01/9.png');
         // this.load.image('mechLU', 'src/assets/PlayerShip01/13.png');
 
-        this.load.audio('MainTheme', 'src/assets/MainTheme.WAV');
+        this.load.audio('MainTheme', '../assets/MainTheme.wav');
     }
 
     create() {

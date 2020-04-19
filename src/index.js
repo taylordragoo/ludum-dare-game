@@ -31,7 +31,6 @@ const config = {
       start: true
     }],
   },
-  // parent: "game",
   scene: [Preload,MainMenu,Level]
 };
 

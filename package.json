@@ -8,6 +8,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
     "start": "node server.js",
     "heroku-postbuild": "webpack -p",
     "build-android": "webpack --mode production --env.android && npx cap copy android && npx cap open android",
