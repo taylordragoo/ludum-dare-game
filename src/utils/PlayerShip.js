@@ -1,4 +1,5 @@
 import MoveableMarker from './MoveableMarker.js';
+const COLOR_PRIMARY = 0x43a047;
 
 export default class PlayerShip extends RexPlugins.Board.Shape {
   constructor(board, tileXY) {
@@ -6,7 +7,7 @@ export default class PlayerShip extends RexPlugins.Board.Shape {
       if (tileXY === undefined) {
           tileXY = board.getRandomEmptyTileXY(0);
       }
-      super(board, tileXY.x, tileXY.y, 0, COLOR_LIGHT);
+      super(board, tileXY.x, tileXY.y, 0, COLOR_PRIMARY);
       scene.add.existing(this);
       this.setDepth(1);
 
@@ -36,6 +37,8 @@ export default class PlayerShip extends RexPlugins.Board.Shape {
       this._movingPoints = 3;
       this._markers = [];
       this.energy = 100;
+      this.money = 1000;
+      this.minerals = 0;
   }
 
   showMoveableArea() {
@@ -85,11 +88,3 @@ export default class PlayerShip extends RexPlugins.Board.Shape {
       return this;
   }
 }
-
-const COLOR_PRIMARY = 0x43a047;
-const COLOR_LIGHT = 0x76d275;
-const COLOR_DARK = 0x00701a;
-
-const COLOR2_PRIMARY = 0xd81b60;
-const COLOR2_LIGHT = 0xff5c8d;
-const COLOR2_DARK = 0xa00037;

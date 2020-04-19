@@ -1,0 +1,38 @@
+ {
+  "good": [
+    {
+      "title": "something good happens! You found some gold",
+      "money": "1",
+      "fuel": "0",
+      "moral": "0"
+    },
+    {
+      "title": "you found some fuel!",
+      "money": "0",
+      "fuel": "1",
+      "moral": "0"
+    },
+    {
+      "title": "you saw a supernova from a safe distance, and your crew is feeling inspired",
+      "money": "0",
+      "fuel": "0",
+      "moral": "1"
+    }
+  ],
+  "neutral": [
+    {
+      "title": "you find nothing of importance"
+    },
+    {
+      "title": "some other neutral thing"
+    }
+  ],
+  "negative": [
+    {
+      "title": "you hit a nebulous cloud of gas and it shorted your systems. you had to use extra fuel",
+      "money": "0",
+      "fuel": "1",
+      "moral": "0"
+    }
+  ]
+}

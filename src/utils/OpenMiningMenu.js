@@ -14,8 +14,8 @@ var createLabel = function(scene, text, backgroundColor) {
     });
 }
 
-export default function OpenDockMenu(scene, playerShip) {
-    var DockedMenu = scene.rexUI.add.dialog({
+export default function OpenMiningMenu(scene, playerShip) {
+    var MiningMenu = scene.rexUI.add.dialog({
         x: scene.playerShip.x, 
         y: scene.playerShip.y,
         background: scene.rexUI.add.roundRectangle(0,0,100,100,20, 0x3e2723),
@@ -32,10 +32,8 @@ export default function OpenDockMenu(scene, playerShip) {
         }),
 
         choices: [
-            createLabel(scene, 'Sleep'),
-            createLabel(scene, 'Sell Resources'),
-            createLabel(scene, 'Recharge Ship Energy Core'),
-            createLabel(scene, 'Undock')
+            createLabel(scene, 'Continue Mining'),
+            createLabel(scene, 'Disengage Turrets')
         ],
 
         space: {
@@ -62,21 +60,17 @@ export default function OpenDockMenu(scene, playerShip) {
     }).setDepth(1).layout();  
 
     scene.print = scene.add.text(0, 0, '');
-    DockedMenu.on('button.click', function (button, groupName, index) {
+    MiningMenu.on('button.click', function (button, groupName, index) {
         console.log(index + ': ' + button.text + '\n');
-        if(index === 3){
-            DockedMenu.scaleDownDestroy(100);
+        if(index === 1){
+            MiningMenu.scaleDownDestroy(100);
             scene.playerShip.moveTo.enable = true;
-            scene.isDocked = false;
-        } else if (index === 2 && scene.playerShip.energy != 100 && scene.playerShip.money >= 100){
-            scene.playerShip.energy = 100;
-            scene.playerShip.money -= 100;
+            scene.isMining = false;
+        } else if (index === 0 && scene.playerShip.energy >= 0){
+            scene.playerShip.energy -= 1;
             this.registry.set('energy', scene.playerShip.energy);
-            this.registry.set('money', scene.playerShip.money);
-        } else if(index === 1 && scene.playerShip.minerals > 0) {
-            scene.playerShip.money = scene.playerShip.minerals * 4;
-            scene.playerShip.minerals -= scene.playerShip.minerals;
-            this.registry.set('money', scene.playerShip.money);
+            
+            scene.playerShip.minerals += 10;
             this.registry.set('minerals', scene.playerShip.minerals);
         }
     }, scene)

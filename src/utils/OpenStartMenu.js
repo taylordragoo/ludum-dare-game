@@ -14,7 +14,7 @@ var createLabel = function(scene, text, backgroundColor) {
     });
 }
 
-export default function OpenDockMenu(scene, playerShip) {
+export default function OpenStartMenu(scene, playerShip) {
     var DockedMenu = scene.rexUI.add.dialog({
         x: scene.playerShip.x, 
         y: scene.playerShip.y,
@@ -68,16 +68,6 @@ export default function OpenDockMenu(scene, playerShip) {
             DockedMenu.scaleDownDestroy(100);
             scene.playerShip.moveTo.enable = true;
             scene.isDocked = false;
-        } else if (index === 2 && scene.playerShip.energy != 100 && scene.playerShip.money >= 100){
-            scene.playerShip.energy = 100;
-            scene.playerShip.money -= 100;
-            this.registry.set('energy', scene.playerShip.energy);
-            this.registry.set('money', scene.playerShip.money);
-        } else if(index === 1 && scene.playerShip.minerals > 0) {
-            scene.playerShip.money = scene.playerShip.minerals * 4;
-            scene.playerShip.minerals -= scene.playerShip.minerals;
-            this.registry.set('money', scene.playerShip.money);
-            this.registry.set('minerals', scene.playerShip.minerals);
         }
     }, scene)
     .on('button.over', function (button, groupName, index) {
