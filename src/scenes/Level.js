@@ -1,7 +1,6 @@
 import 'phaser';
 import Board from '../utils/Board.js';
 import PlayerShip from "../utils/PlayerShip.js";
-import HUD from '../scenes/Hud.js';
 import OpenDockMenu from '../utils/OpenDockMenu.js';
 import OpenMiningMenu from '../utils/OpenMiningMenu.js';
 import StateMachine from '../states/StateMachine.js';
@@ -364,8 +363,6 @@ export default class Level extends Phaser.Scene {
 
     // basic setup
     this.board = new Board(this, config);
-
-    this.playerHUD = new HUD();
 
     this.allAsteroidBelts = [];
     this.allStations = [];
