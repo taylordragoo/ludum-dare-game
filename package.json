@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "start": "webpack --mode production",
     "build-android": "webpack --mode production --env.android && npx cap copy android && npx cap open android",
     "build-ios": "webpack --mode production --env.ios && npx cap copy ios && npx cap open ios",
     "build-electron": "webpack --mode production --env.electron && npx cap copy electron",
