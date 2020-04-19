@@ -118,7 +118,7 @@ export default class MainMenu extends Phaser.Scene {
         if(cellContainer.text == "New Game"){
           this.print.text += 'click ' + cellIndex + ': ' + cellContainer.text + '\n';
           this.scene.start('Level');
-          this.scene.launch('HUD');
+        //   this.scene.launch('HUD');
         } else if(cellContainer.text == "Options") {
           console.log("Options");
         } else if(cellContainer.text == "Credits") {

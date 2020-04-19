@@ -8,18 +8,9 @@ export default class HUD extends Phaser.Scene {
         });
     }
     create() {
-        // this.style = { font: "40px", fill: "#ffffff", align: "center" };
-        // this.energyText = this.add.text(10, 1, `Energy Core: ${this.registry.get('energy')}`, this.style).setScrollFactor(0).setDepth(99);
-        // this.moneyText = this.add.text(10, 45, `Money: ${this.registry.get('money')}`, this.style).setScrollFactor(0).setDepth(99);
-        // this.mineralsText = this.add.text(10,90, `Minerals: ${this.registry.get('minerals')}`, this.style).setScrollFactor(0).setDepth(99);
-        // this.statusTrackerText = this.add.text(10,135, `Status: ${this.registry.get('status')}`, this.style).setScrollFactor(0).setDepth(99);
     }
 
     update() {
-        // this.energyText.text = `Energy Core: ${this.registry.get('energy')}%`
-        // this.moneyText.text = `Money: $${this.registry.get('money')}`
-        // this.mineralsText.text = `Minerals: ${this.registry.get('minerals')}`
-        // this.statusTrackerText.text = `Status: ${this.registry.get('status')}`
     }
 }
 
