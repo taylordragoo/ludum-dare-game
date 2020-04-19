@@ -5,7 +5,6 @@ import rexPathFollower from './plugins/pathfollower.js';
 import Preload from './scenes/Preload.js';
 import MainMenu from './scenes/MainMenu.js';
 import HUD from './scenes/Hud.js'
-import GalaxyMap from './scenes/GalaxyMap';
 import Level from './scenes/Level.js';
 
 const config = {
@@ -34,7 +33,7 @@ const config = {
     }],
   },
   // parent: "game",
-  scene: [Preload,MainMenu,HUD,GalaxyMap,Level]
+  scene: [Preload,MainMenu,HUD,Level]
 };
 
 const game = new Phaser.Game(config);

@@ -21,12 +21,12 @@ export default function OpenMiningMenu(scene, playerShip) {
         background: scene.rexUI.add.roundRectangle(0,0,100,100,20, 0x3e2723),
         title: scene.rexUI.add.label({
             background: scene.rexUI.add.roundRectangle(0,0,100,40,20,0x1b0000),
-            text: scene.add.text(0,0, 'Space Station Dock', {
-                fontSize: '24px',
-                align: 'center'
-            }),
+            // text: scene.add.text(0,0, '', {
+            //     fontSize: '24px',
+            //     align: 'center'
+            // }),
         }),
-        content: scene.add.text(0,0,'Welcome to the Space Station', {
+        content: scene.add.text(0,0,'Deep Core Mining Laser ', {
             fontSize: '24px',
             align: 'center'
         }),

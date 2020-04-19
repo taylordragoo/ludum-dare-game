@@ -39,6 +39,7 @@ export default class PlayerShip extends RexPlugins.Board.Shape {
       this.energy = 100;
       this.money = 1000;
       this.minerals = 0;
+      this.status = "";
   }
 
   showMoveableArea() {

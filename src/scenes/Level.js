@@ -4,16 +4,21 @@ import PlayerShip from "../utils/PlayerShip.js";
 import HUD from '../scenes/Hud.js';
 import OpenDockMenu from '../utils/OpenDockMenu.js';
 import OpenMiningMenu from '../utils/OpenMiningMenu.js';
-import GetEvent from '../utils/eventGenerator.js';
 import StateMachine from '../states/StateMachine.js';
 import IdleState from '../states/PlayerStates/IdleState.js';
 import StartState from '../states/PlayerStates/StartState.js';
 import MoveState from '../states/PlayerStates/MoveState.js';
+import Events from '../utils/events.json';
 
 var dockConfDiag = undefined;
 var mineConfDiag = undefined;
 var isDocked = false;
 var isMining = false;
+var isRandomEvent = false;
+
+const COLOR_PRIMARY = 0x4e342e;
+const COLOR_LIGHT = 0x7b5e57;
+const COLOR_DARK = 0x260e04;
 
 const getQuadGrid = (scene) => {
   var grid = scene.rexBoard.add.quadGrid({
@@ -26,6 +31,96 @@ const getQuadGrid = (scene) => {
   return grid;
 }
 
+const GetValue = Phaser.Utils.Objects.GetValue;
+
+const createTextBox = function (scene, x, y, config) {
+    var wrapWidth = GetValue(config, 'wrapWidth', 0);
+    var fixedWidth = GetValue(config, 'fixedWidth', 0);
+    var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var textBox = scene.rexUI.add.textBox({
+            x: x,
+            y: y,
+
+            background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
+                .setStrokeStyle(2, COLOR_LIGHT),
+
+            icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+
+            // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
+            text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
+
+            action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
+
+            space: {
+                left: 20,
+                right: 20,
+                top: 20,
+                bottom: 20,
+                icon: 10,
+                text: 10,
+            }
+        })
+        .setOrigin(0)
+        .layout();
+
+    textBox
+        .setInteractive()
+        .on('pointerdown', function () {
+            var icon = this.getElement('action').setVisible(false);
+            this.resetChildVisibleState(icon);
+            if (this.isTyping) {
+                this.stop(true);
+            } else {
+                this.typeNextPage();
+            }
+        }, textBox)
+        .on('pageend', function () {
+            if (this.isLastPage) {
+                return;
+            }
+
+            var icon = this.getElement('action').setVisible(true);
+            this.resetChildVisibleState(icon);
+            icon.y -= 30;
+            var tween = scene.tweens.add({
+                targets: icon,
+                y: '+=30', // '+=100'
+                ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
+                duration: 500,
+                repeat: 0, // -1: infinity
+                yoyo: false
+            });
+        }, textBox)
+    //.on('type', function () {
+    //})
+
+    return textBox;
+}
+
+const getBuiltInText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
+    return scene.add.text(0, 0, '', {
+            fontSize: '20px',
+            wordWrap: {
+                width: wrapWidth
+            },
+            maxLines: 3
+        })
+        .setFixedSize(fixedWidth, fixedHeight);
+}
+
+const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
+    return scene.rexUI.add.BBCodeText(0, 0, '', {
+        fixedWidth: fixedWidth,
+        fixedHeight: fixedHeight,
+
+        fontSize: '20px',
+        wrap: {
+            mode: 'word',
+            width: wrapWidth
+        },
+        maxLines: 3
+    })
+}
 const OpenDockConfirmMenu = (scene) => {
   if(dockConfDiag === undefined && !scene.isDocked){
     scene.playerShip.moveTo.enable = false;
@@ -198,14 +293,68 @@ const CreateLabel = (scene, text) => {
   return _createLabel;
 }
 
+const RandomEventMenu = (scene) => {
+
+}
+
+const GetRandomEvent = (scene) => {
+  isRandomEvent = true;
+	let type;
+  const variety = Phaser.Math.Between(1,10);
+  
+	if(variety === 1 || variety === 2) {
+		type = "negative";
+	} else if (variety >= 3 && variety <= 8) {
+		type = "neutral";
+	} else {
+		type = "good";
+  };
+
+  var event = Phaser.Utils.Array.GetRandom(scene.data[type]);
+  console.log(event);
+  if(type === "good"){
+    scene.playerShip.energy += parseInt(event.energy);
+    scene.playerShip.money += parseInt(event.money);
+    scene.playerShip.minerals += parseInt(event.minerals);
+    scene.playerShip.status = event.title;
+  } else if(type === "bad"){
+    scene.playerShip.energy -= parseInt(event.energy);
+    scene.playerShip.money -= parseInt(event.money);
+    scene.playerShip.minerals -= parseInt(event.minerals);
+    scene.playerShip.status = event.title;
+  } else {
+    scene.playerShip.energy += parseInt(event.energy);
+    scene.playerShip.money += parseInt(event.money);
+    scene.playerShip.minerals += parseInt(event.minerals);
+    scene.playerShip.status = event.title;
+  }
+
+  scene.registry.set('energy', scene.playerShip.energy);
+  scene.registry.set('money', scene.playerShip.money);
+  scene.registry.set('minerals', scene.playerShip.minerals);
+  scene.registry.set('status', scene.playerShip.status);
+}
+
 export default class Level extends Phaser.Scene {
   constructor() {
     super({ key: 'Level' });
+  }
+  preload(){
+    this.load.json('eventData', Events);
   }
   create() {
     this.playerStartLocation = undefined;
     this.playerStartLocationX = undefined;
     this.playerStartLocationY = undefined;
+
+    this.data = this.cache.json.get('eventData');
+
+    this.style = { font: "40px", fill: "#ffffff", align: "center" };
+    this.energyText = this.add.text(10, 1, `Energy Core: ${this.registry.get('energy')}`, this.style).setScrollFactor(0).setDepth(99);
+    this.moneyText = this.add.text(10, 45, `Money: ${this.registry.get('money')}`, this.style).setScrollFactor(0).setDepth(99);
+    this.mineralsText = this.add.text(10,90, `Minerals: ${this.registry.get('minerals')}`, this.style).setScrollFactor(0).setDepth(99);
+    this.statusTrackerText = this.add.text(10,135, `Status: ${this.registry.get('status')}`, this.style).setScrollFactor(0).setDepth(99);
+
     // create board
     var config = {
       grid: getQuadGrid(this),
@@ -258,24 +407,31 @@ export default class Level extends Phaser.Scene {
     this.registry.set('energy', this.playerShip.energy);
     this.registry.set('money', this.playerShip.money);
     this.registry.set('minerals', this.playerShip.minerals);
+    this.registry.set('status', this.playerShip.status);
 
     this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
     this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
   }
 
   update(time, delta){
-
     // handle state machine 
     this.stateMachine.step();
     this.state = this.stateMachine.GetState();
     
     const scene = this;
+
+    // UI Panel
+    this.energyText.text = `Energy Core: ${this.registry.get('energy')}%`
+    this.moneyText.text = `Money: $${this.registry.get('money')}`
+    this.mineralsText.text = `Minerals: ${this.registry.get('minerals')}`
+    this.statusTrackerText.text = `Status: ${this.registry.get('status')}`
     
     // update ship coordinates to the sprite can update accordingly
     this.playerMask.x = this.playerShip.x;
     this.playerMask.y = this.playerShip.y;
 
     if(this.state === "move") {
+      isRandomEvent = false;
       // Update Animation
       if(this.playerShip.rexChess.tileXYZ.x < this.lastXVal) {
         this.playerMask.setTexture('mechLU').setDepth(1).setScale(.5);
@@ -303,30 +459,30 @@ export default class Level extends Phaser.Scene {
       this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
       this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
 
+      // movement cost
       this.registry.set('energy', this.playerShip.energy);
 
+      // Check for neighbors and random events
       this.neighborCheck = this.board.getNeighborChess(this.playerShip, null);
 
+      // if nieghbor exists
       if(this.neighborCheck != ""){
         if(this.allStations.includes(this.neighborCheck[0])) {
+          // Open Space Station
           OpenDockConfirmMenu(scene);
 
         } else if(this.allAsteroidBelts.includes(this.neighborCheck[0])) {
+          // Open Mining Menu
           OpenMiningConfirmMenu(scene);
           
         }
 
-      } else if(this.neighborCheck === "") {
-        var event = [];
-        event.push(GetEvent(scene));
-        console.log(event)
-
-      } else {
+      } else if(!isRandomEvent) {
+        var eventVars = GetRandomEvent(scene);
         dockConfDiag = undefined;
         mineConfDiag = undefined;
 
       }
-
     } else if (this.state.start){
       this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
       this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
