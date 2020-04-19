@@ -1,3 +1,5 @@
+import SpaceStation from './SpaceStation.js'
+
 export default class Board extends RexPlugins.Board.Board {
     constructor(scene, config) {
         // create board
@@ -7,7 +9,7 @@ export default class Board extends RexPlugins.Board.Board {
           lineStyle: {
               width: 1,
               color: COLOR_PRIMARY,
-              alpha: 1,  
+              alpha: 0.3,  
           },
         });
         this.forEachTileXY(function (tileXY, board) {
@@ -16,6 +18,14 @@ export default class Board extends RexPlugins.Board.Board {
         });
         // enable touch events
         this.setInteractive();
+    }
+
+    addSpaceStation(tileXY){
+        if(tileXY === undefined){
+            tileXY = this.getRandomEmptyTileXY(1);
+        }
+        new SpaceStation(this, tileXY);
+        return this;
     }
 }
 

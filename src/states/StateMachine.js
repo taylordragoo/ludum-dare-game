@@ -12,6 +12,7 @@ export default class StateMachine {
 
     step(){
         if(this.state == null){
+            console.log(this.state)
             this.state = this.initialState;
             this.possibleStates[this.state].enter(...this.stateArgs);
         }
@@ -21,5 +22,9 @@ export default class StateMachine {
     transition(newState, ...enterArgs){
         this.state = newState;
         this.possibleStates[this.state].enter(...this.stateArgs, ...enterArgs);
+    }
+
+    GetState(){
+        return this.state;
     }
 }

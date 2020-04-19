@@ -26,13 +26,11 @@ export default class Preload extends Phaser.Scene {
             this.fullBar.destroy();
         }, this);
 
-        // this.load.pack('Preload', 'assets/pack.json', 'Preload');
-        // this.load.image('mechLD', '../assets/ship01_iso_render/1.png');
-        // this.load.image('mechRD', '../assets/ship01_iso_render/5.png');
-        // this.load.image('mechRU', '../assets/ship01_iso_render/9.png');
-        // this.load.image('mechLU', '../assets/ship01_iso_render/13.png');
-        // this.load.image('galaxy_bg', '../assets/galaxy_bg_2.png');
-        // this.load.image('galaxy_map', '../assets/EarthSphere02.png');
+        this.load.image('mechLD', 'src/assets/ship01_iso_render/1.png');
+        this.load.image('mechRD', 'src/assets/ship01_iso_render/5.png');
+        this.load.image('mechRU', 'src/assets/ship01_iso_render/9.png');
+        this.load.image('mechLU', 'src/assets/ship01_iso_render/13.png');
+        this.load.image('galaxy_bg', 'src/assets/space_bg_pixel.png');
     }
 
     create() {
@@ -63,7 +61,6 @@ export default class Preload extends Phaser.Scene {
             frames: this.anims.generateFrameNames('mechRU')
         });
         
-        Phaser.GameObjects.BitmapText.ParseFromAtlas(this, 'minecraft', 'atlas', 'minecraft', 'minecraftXML');
         this.scene.start('MainMenu');
     }
 }

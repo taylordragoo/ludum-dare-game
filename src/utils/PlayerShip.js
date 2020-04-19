@@ -1,12 +1,11 @@
 import MoveableMarker from './MoveableMarker.js';
 
-export default class MechA extends RexPlugins.Board.Shape {
+export default class PlayerShip extends RexPlugins.Board.Shape {
   constructor(board, tileXY) {
       var scene = board.scene;
       if (tileXY === undefined) {
           tileXY = board.getRandomEmptyTileXY(0);
       }
-      // Shape(board, tileX, tileY, tileZ, fillColor, fillAlpha, addToBoard)
       super(board, tileXY.x, tileXY.y, 0, COLOR_LIGHT);
       scene.add.existing(this);
       this.setDepth(1);
@@ -34,8 +33,9 @@ export default class MechA extends RexPlugins.Board.Shape {
       });
 
       // private members
-      this._movingPoints = 5;
+      this._movingPoints = 3;
       this._markers = [];
+      this.energy = 100;
   }
 
   showMoveableArea() {

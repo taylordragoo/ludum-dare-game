@@ -18,17 +18,17 @@ export default class MainMenu extends Phaser.Scene {
   create() {
     var scrollMode = 0; // 0:vertical, 1:horizontal
     var gridTable = this.rexUI.add.gridTable({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      anchor: 'centerX',
-      width: (scrollMode === 0) ? 300 : 420,
-      height: (scrollMode === 0) ? 300 : 300,
+        x: 800,
+        y: 450,
+        anchor: 'centerX',
+        width: (scrollMode === 0) ? 300 : 420,
+        height: (scrollMode === 0) ? 300 : 300,
 
-      scrollMode: scrollMode,
+        scrollMode: scrollMode,
 
-      background: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, COLOR_PRIMARY),
+        background: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, COLOR_PRIMARY),
 
-      table: {
+        table: {
           cellWidth: (scrollMode === 0) ? undefined : 60,
           cellHeight: (scrollMode === 0) ? 60 : undefined,
 
@@ -82,9 +82,9 @@ export default class MainMenu extends Phaser.Scene {
                       top: (scrollMode === 0) ? 0 : 15,
                   }
               });
-              console.log(cell.index + ': create new cell-container');
+            //   console.log(cell.index + ': create new cell-container');
           } else {
-              console.log(cell.index + ': reuse cell-container');
+            //   console.log(cell.index + ': reuse cell-container');
           }
 
           // Set properties from item value
@@ -95,7 +95,7 @@ export default class MainMenu extends Phaser.Scene {
       },
       items: getItems(5)
   }).layout()
-  .drawBounds(this.add.graphics(), 0xff0000);
+//   .drawBounds(this.add.graphics(), 0xff0000);
 
   this.print = this.add.text(0, 0, '');
   gridTable

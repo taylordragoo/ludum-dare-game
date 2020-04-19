@@ -5,6 +5,7 @@ export default class IdleState extends State {
         console.log('Enter Idle');
     }
     execute(scene, player) {
+        // player.gas++;
         if(player.moveTo.isRunning){
             console.log('Stop Idle');
             scene.stateMachine.transition('move');
