@@ -8,5 +8,6 @@ export default class SpaceStation extends RexPlugins.Board.Shape {
     }
     super(board, tileXY.x, tileXY.y, 0, COLOR_PRIMARY);
     scene.add.existing(this);
+    scene.add.sprite(this.x,this.y,'spacestation').setDepth(1).setScale(2);
   }
 }

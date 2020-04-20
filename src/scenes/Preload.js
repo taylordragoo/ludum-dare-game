@@ -26,12 +26,14 @@ export default class Preload extends Phaser.Scene {
             this.fullBar.destroy();
         }, this);
 
-        // this.load.image('mechLD', 'src/assets/PlayerShip01/1.png');
-        // this.load.image('mechRD', 'src/assets/PlayerShip01/5.png');
-        // this.load.image('mechRU', 'src/assets/PlayerShip01/9.png');
-        // this.load.image('mechLU', 'src/assets/PlayerShip01/13.png');
+        this.load.image('mechLD', 'src/assets/PlayerShip_LEFT.png');
+        this.load.image('mechRD', 'src/assets/PlayerShip_RIGHT.png');
+        this.load.image('mechLU', 'src/assets/PlayerShip_LEFT.png');
+        this.load.image('mechRU', 'src/assets/PlayerShip_RIGHT.png');
+        this.load.image('asteroidbelt', 'src/assets/asteroidbelt.png');
+        this.load.image('spacestation', 'src/assets/spacestation.png');
 
-        this.load.audio('MainTheme', '../assets/MainTheme.wav');
+        this.load.audio('MainTheme', 'src/assets/MainTheme.wav');
     }
 
     create() {
