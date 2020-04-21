@@ -1,9 +1,6 @@
 Ludum Dare 46 Submission
 
 - npm install
-- run run dev
+- npm run dev
 
--npx cap add electron
--npm run build-electron
--npm run electron:start
-
+https://hidden-eyrie-50192.herokuapp.com/
