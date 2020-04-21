@@ -393,7 +393,7 @@ export default class Level extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.playerShip);
     
-    this.playerMask = this.add.sprite(this.playerShip.x,this.playerShip.y,'mechRD').setDepth(1).setScale(1.5);
+    this.playerMask = this.add.sprite(this.playerShip.x,this.playerShip.y,'mechRD').setDepth(1).setScale(2);
 
     this.stateMachine = new StateMachine('start',{
       start: new StartState(),
@@ -434,23 +434,23 @@ export default class Level extends Phaser.Scene {
       isRandomEvent = false;
       // Update Animation
       if(this.playerShip.rexChess.tileXYZ.x < this.lastXVal) {
-        this.playerMask.setTexture('mechLU').setDepth(1).setScale(1.5);
+        this.playerMask.setTexture('mechLU').setDepth(1).setScale(2);
         this.playerShip.energy -= 1;
         this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
         this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
       } else if (this.playerShip.rexChess.tileXYZ.x > this.lastXVal){
-        this.playerMask.setTexture('mechRD').setDepth(1).setScale(1.5);
+        this.playerMask.setTexture('mechRD').setDepth(1).setScale(2);
         this.playerShip.energy -= 1;
         this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
         this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
       } else if (this.playerShip.rexChess.tileXYZ.y < this.lastYVal){
         this.playerShip.energy -= 1;
-        this.playerMask.setTexture('mechRU').setDepth(1).setScale(1.5);
+        this.playerMask.setTexture('mechRU').setDepth(1).setScale(2);
         this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
         this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
       } else if (this.playerShip.rexChess.tileXYZ.y > this.lastYVal){
         this.playerShip.energy -= 1;
-        this.playerMask.setTexture('mechLD').setDepth(1).setScale(1.5);
+        this.playerMask.setTexture('mechLD').setDepth(1).setScale(2);
         this.lastXVal = this.playerShip.rexChess.tileXYZ.x;
         this.lastYVal = this.playerShip.rexChess.tileXYZ.y;
       }

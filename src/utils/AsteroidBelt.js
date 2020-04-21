@@ -8,7 +8,7 @@ export default class AsteroidBelt extends RexPlugins.Board.Shape {
         }
         super(board, tileXY.x, tileXY.y, 0, COLOR_PRIMARY).setDepth(0).setAlpha(0.3);
         scene.add.existing(this).setDepth(0);
-        scene.add.sprite(this.x,this.y,'asteroidbelt').setDepth(1).setScale(1);
+        scene.add.sprite(this.x,this.y,'asteroidbelt').setDepth(1).setScale(1.5);
     }
 }
   

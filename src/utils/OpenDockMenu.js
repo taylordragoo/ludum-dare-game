@@ -32,7 +32,6 @@ export default function OpenDockMenu(scene, playerShip) {
         }),
 
         choices: [
-            createLabel(scene, 'Sleep'),
             createLabel(scene, 'Sell Resources'),
             createLabel(scene, 'Recharge Ship Energy Core'),
             createLabel(scene, 'Undock')
