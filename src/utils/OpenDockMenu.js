@@ -63,18 +63,18 @@ export default function OpenDockMenu(scene, playerShip) {
     scene.print = scene.add.text(0, 0, '');
     DockedMenu.on('button.click', function (button, groupName, index) {
         console.log(index + ': ' + button.text + '\n');
-        if(index === 3){
+        if(index === 2){
             DockedMenu.scaleDownDestroy(100);
             scene.playerShip.moveTo.enable = true;
             scene.isDocked = false;
-        } else if (index === 2 && scene.playerShip.energy != 100 && scene.playerShip.money >= 100){
+        } else if (index === 1 && scene.playerShip.energy != 100 && scene.playerShip.money >= 100){
             scene.playerShip.energy = 100;
-            scene.playerShip.money -= 100;
+            scene.playerShip.money -= 200;
             this.registry.set('energy', scene.playerShip.energy);
             this.registry.set('money', scene.playerShip.money);
-        } else if(index === 1 && scene.playerShip.minerals > 0) {
-            scene.playerShip.money = scene.playerShip.minerals * 4;
-            scene.playerShip.minerals -= scene.playerShip.minerals;
+        } else if(index === 0 && scene.playerShip.minerals > 0) {
+            scene.playerShip.money += scene.playerShip.minerals * 4;
+            scene.playerShip.minerals = 0;
             this.registry.set('money', scene.playerShip.money);
             this.registry.set('minerals', scene.playerShip.minerals);
         }
