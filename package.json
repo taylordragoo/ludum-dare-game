@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@capacitor/android": "^1.0.0-beta.24",
-    "@capacitor/cli": "^1.0.0-beta.24",
+    "@capacitor/cli": "^1.5.3",
     "@capacitor/core": "^1.0.0-beta.24",
     "express": "^4.17.1",
     "phaser": "3.22.0"
