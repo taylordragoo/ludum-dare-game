@@ -22,7 +22,7 @@
     "@capacitor/android": "^1.0.0-beta.24",
     "@capacitor/cli": "^1.0.0-beta.24",
     "@capacitor/core": "^1.0.0-beta.24",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "phaser": "3.22.0"
   },
   "devDependencies": {
